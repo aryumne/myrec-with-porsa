@@ -1,14 +1,5 @@
 <template>
   <v-container class="pt-0">
-    <!-- <v-alert
-      v-model="alert"
-      closable
-      color="blue-darken-4"
-      variant="tonal"
-      class="rounded-0 py-2 text-center"
-    >
-      Make your text come to life with an engaging voice!
-    </v-alert> -->
     <v-toolbar
       elevation="5"
       color="blue-darken-4"
@@ -22,7 +13,7 @@
       </v-btn>
 
       <v-toolbar-title>My Rec</v-toolbar-title>
-      <v-btn icon :to="{ name: 'Landing' }">
+      <v-btn icon @click.prevent="logout">
         <v-icon>mdi-export</v-icon>
       </v-btn>
     </v-toolbar>
@@ -30,9 +21,18 @@
 </template>
 
 <script setup>
-// import { ref } from "vue";
+import { authService } from "@/services";
+import { authStore } from "@/stores";
 
-// const alert = ref(true);
+const logout = async () => {
+  try {
+    await authService.logout();
+    authStore.userLoggedOut();
+  } catch (e) {
+    console.error(e.message);
+  }
+};
 </script>
 
 <style scoped></style>
+@/stores
